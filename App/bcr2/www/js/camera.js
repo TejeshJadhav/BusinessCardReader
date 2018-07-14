@@ -15,7 +15,8 @@ function cameraTakePicture()
     });
     function onSuccess(imageData)
     {
-        alert(imageData);  //working getting encrypted image.
+        alert(imageData); //working getting encrypted image.
+        sendImageToServer(imageData);
         document.getElementById("cardImage").src ="data:image/jpeg;base64" + imageData;  //displaying image issue
     
     }
@@ -25,9 +26,27 @@ function cameraTakePicture()
         alert('Failed because:' + message);
     }
 }
-function sendImageToServer()
+function sendImageToServer(imageData)
 {
-    //post request to google vision server followed by response text
+alert("Function Started!")
+var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDrxqAfizrJS1Otg05fQXDYKwpjxXKsOwg';
+var header = {'Content-Type': 'application/json'};
+var body = {
+        'requests': [{
+            'image': {
+                'content': imageData,
+            },
+            'features': [{
+                'type': 'TEXT_DETECTION',
+                'maxResults': 1,
+            }]
+
+        }]
+    };
+var response = jQuery.post(url,header,body);
+console.log(response);
+alert(response);
+//    text = response['responses'][0]['textAnnotations'][0]['description'] if len(response['responses'][0]) > 0 else ''
 }
 function sendTextToServer()
 {
