@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.summerproject.bcr"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.summerproject.bcr"
+    },
+    "cordova-plugin-contacts": {
+      "PACKAGE_NAME": "com.summerproject.bcr"
+    }
+  },
+  "dependent_plugins": {}
+}
