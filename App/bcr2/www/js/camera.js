@@ -15,8 +15,8 @@ function cameraTakePicture()
     });
     function onSuccess(imageData)
     {
-        alert(imageData); //working getting encrypted image.
-        sendImageToServer(imageData);
+        alert(imageData); //working : getting encrypted image.
+        sendImageToServer(imageData);//for testing purpose
         document.getElementById("cardImage").src ="data:image/jpeg;base64" + imageData;  //displaying image issue
     
     }
@@ -26,7 +26,9 @@ function cameraTakePicture()
         alert('Failed because:' + message);
     }
 }
-function sendImageToServer(imageData)
+
+
+function sendImageToServer(imageData) //i want to send the image data to this api and get the results back
 {
 alert("Function Started!")
 var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDrxqAfizrJS1Otg05fQXDYKwpjxXKsOwg';
@@ -45,9 +47,12 @@ var body = {
     };
 var response = jQuery.post(url,header,body);
 console.log(response);
-alert(response);
+alert(response.responses[0].textAnnotations[0].description);
 //    text = response['responses'][0]['textAnnotations'][0]['description'] if len(response['responses'][0]) > 0 else ''
 }
+
+
+
 function sendTextToServer()
 {
     //post request to google nlp server followed by classified response
@@ -59,4 +64,4 @@ function confirmContactInfo()
 function saveContact()
 {
     //save contact to phone
-}
+}   
