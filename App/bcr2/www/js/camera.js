@@ -2,12 +2,15 @@ document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady()
 {
     console.log(navigator.camera);
+	//alert("Device Ready");
     document.getElementById("camera").addEventListener("click",cameraTakePicture);
 }
-var image;
+
+var image,text;
+
 function cameraTakePicture()
 {
-    alert("Opening Camera Please Capture Clear Picture of Card!");
+    //alert("Opening Camera Please Capture Clear Picture of Card!");
     navigator.camera.getPicture(onSuccess, onFail, 
     {
         quality:50,
@@ -15,8 +18,9 @@ function cameraTakePicture()
     });
     function onSuccess(imageData)
     {
-        alert(imageData); //working : getting encrypted image.
-        sendImageToServer(imageData);//for testing purpose
+    //    if(imageData)
+	//		alert("done"); //working : getting base64 image.
+        sendImageToServer(imageData);//under testing 
         document.getElementById("cardImage").src ="data:image/jpeg;base64" + imageData;  //displaying image issue
     
     }
@@ -30,7 +34,7 @@ function cameraTakePicture()
 
 function sendImageToServer(imageData) //i want to send the image data to this api and get the results back
 {
-alert("Function Started!")
+////'alert("Function Started!")
 var url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDrxqAfizrJS1Otg05fQXDYKwpjxXKsOwg';
 //var header = {'Content-Type': 'application/json'};
 var body = {
@@ -47,7 +51,7 @@ var body = {
     };
 var response = jQuery.post(url,body);
 console.log(response);
-alert(response.status);
+alert(response.textAnnotations);
 //    text = response['responses'][0]['textAnnotations'][0]['description'] if len(response['responses'][0]) > 0 else ''
 }
 
@@ -77,8 +81,10 @@ function extract_req_entities(){
 	for (i=0;i<l;i++)
 		{
 			t = ent['type'];
-			if JQuery.inArray(t,required_entities)
+			if (JQuery.inArray(t,required_entities))
+			{
 				required_entities[t] += ent['name'];
+			}
 		}
 		return required_entities;
 }//post request to google nlp server followed by classified response
